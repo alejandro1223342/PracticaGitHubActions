@@ -2,21 +2,23 @@
 
 name: Pruebas
 
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del código
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Instalar dependencias
-        run: npm install
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-      - name: Ejecutar pruebas
-        run: npm test
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Jest tests
+      run: npm test
+
